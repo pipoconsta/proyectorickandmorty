@@ -7,7 +7,7 @@ import './Card.module.css'
 
 
 
-
+ 
  function Card({id, name, status, gender, image, species, origin, onClose, myFavorites, addFav, removeFav}) {
    const [isFav, setIsFav] = useState(false);
 
