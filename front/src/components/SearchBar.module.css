@@ -1,0 +1,8 @@
+
+  .placeholderButton {
+    background-color: transparent; 
+    border: none; 
+    color: #ccc; 
+    cursor: pointer;
+    font-size: 16px;
+  }
