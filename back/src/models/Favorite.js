@@ -1,33 +1,43 @@
-require('dotenv').config();
-const { Sequelize } = require('sequelize');
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
-const FavoriteModel = require("./models/Favorite")
-const UserModel = require('./models/User')
+const { DataTypes } = require('sequelize');
 
+module.exports = (sequelize) => {
+   sequelize.define('Favorite', {
+      id: { 
+         type: DataTypes.INTEGER,
+         allowNull: false,
+         primaryKey: true,
+         autoIncrement: true
+      },
 
-// EJERCICIO 03
-// A la instancia de Sequelize le falta la URL de conexión. ¡Agrégala!
-// Recuerda pasarle la información de tu archivo '.env'.
+      name: { 
+         type: DataTypes.STRING,
+         allowNull: false,
+      },
 
-// URL ----> postgres://DB_USER:DB_PASSWORD@DB_HOST/rickandmorty
-const sequelize = new Sequelize(
-   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/rickandmorty`,
-   { logging: false, native: false }
-);
+      status: {
+         type: DataTypes.ENUM('Alive', 'Dead', 'unknown'), // guarda los datos que nosotros le indicamos;
+         allowNull: false,
+      },
 
-// EJERCICIO 05
-// Debajo de este comentario puedes ejecutar la función de los modelos.
-FavoriteModel(sequelize)
-UserModel(sequelize)
+      species: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
 
-// Ejercicio 06
-// ¡Relaciona tus modelos aquí abajo!
- const { User, Favorite } = sequelize.models;
- User.belongsToMany(Favorite, {through: "user_favorite"});
- Favorite.belongsToMany(User, {through: "user_favorite"});
+      gender: {
+        type: DataTypes.ENUM('Female', 'Male', 'Genderless', 'unknown'),
+        allowNull: false,
+      },
 
-module.exports = {
-   User,
-   Favorite,
-   conn: sequelize,
+      origin: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
+      image: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+   }, 
+   { timestamps: false });
 };
